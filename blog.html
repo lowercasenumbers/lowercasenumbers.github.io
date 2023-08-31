@@ -1,0 +1,27 @@
+---
+layout: page
+title: Blog
+permalink: /
+---
+<!-- Slider Start -->
+<section id="global-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          <h1>About Me</h1>
+          <p>I am a cybersecurity professional who is curious. I like to break things as a means to understand how they work. Most days I can be found researching my vaious interests and trying to learn as much as possible.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% for post in site.posts %}
+<div class="post-area">
+  <a href="{{ post.url | prepend: site.baseurl }}" class="bold">{{ post.title }}</a>
+  <p class="post-date">{{ post.date | date_to_long_string }}</p>
+  <p>
+    {{ post.content | strip_html | truncatewords: 50 }}
+  </p>
+</div>
+{% endfor %}
