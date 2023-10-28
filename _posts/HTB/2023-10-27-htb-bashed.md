@@ -71,7 +71,7 @@ Finished
 
 ```
 
-While the scan is running its always a good idea to take a look at the webpage in a browser and check the source code. Sometimes this provides a piece of important infomration. I like to do this while something else is running in order to save a little time. The homepage indicates that phpbash was used on this server. Investigating this further shows that php bash is a webshell that can be used to execute system commands
+While the scan is running its always a good idea to take a look at the webpage in a browser and check the source code. Sometimes this provides a piece of important information. I like to do this while something else is running in order to save a little time. The homepage indicates that phpbash was used on this server. Investigating this further shows that php bash is a webshell that can be used to execute system commands
 
 ![phpbash homepage](/img/htb/bashed/phpbash.png)
 
