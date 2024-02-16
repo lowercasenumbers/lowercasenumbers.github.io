@@ -5,6 +5,7 @@ subtitle:
 date: 2023-10-27
 author: Mike Vedete
 category: HTB
+tags: [ctf]
 ---
 Bashed from Hackthebox, is a fairly easy machine without too many rabbit holes. Exploitation involves performing good enumeration, not overlooking the quick wins, a bit of curiosity. Overall its a good box for and serves as a good reminder not to over complicate it. 
 
