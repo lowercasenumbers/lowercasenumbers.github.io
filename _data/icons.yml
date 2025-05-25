@@ -6,7 +6,7 @@ calendly:
 dribbble:
 facebook:
 flickr:
-github: sylhare
+github: lowercasenumbers
 gitlab:
 google-scholar:   # e.g. "WXAAOb0AAAAJ"
 instagram:
@@ -29,7 +29,7 @@ stack-overflow:   # e.g. "123456789"
 steam:
 telegram:
 tumblr:
-twitch:
+twitch: lowercasenumbers
 twitter:
 vimeo:
 vk:
