@@ -7,7 +7,7 @@ subtitle:
 date: 2023-11-14
 author: "lowercasenumbers"
 category: [Proving Grounds]
-tags: [Proving Grounds]
+tags: [Proving Grounds,ctf]
 ---
 Astronaut from ProvingGround Practice, is a warmup machine that has a short exploitation path. Rooting the box requires a known exploit and an simple privledege escalation. As always, good enumeration is key. 
 
